@@ -4,7 +4,7 @@
  #### File: RHmm.R 
  ####                                                         
  #### Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr>
- #### Author: Sebastian BAUER <mail@sebastianbauer.info>
+ #### Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ####                                                         
  ###############################################################
 
@@ -1091,11 +1091,14 @@ HMMFit <- function(obs, dis="NORMAL", nStates = 2, asymptCov=FALSE, ... )
     Levels <- NULL
     control <- NULL
     args <- list(...)
+
     extras <- match.call(expand.dots=FALSE)$...
+
     lextras <- 0
     if (!is.null(extras))
         lextras <- length(extras)
-
+ 
+ 
     if (dis == "MIXTURE")
     {    if (lextras == 0)
             stop("HMMFit with gaussian MIXTURE distributions needs a 'nMixt' parameter.\n")
@@ -1162,7 +1165,7 @@ HMMFit <- function(obs, dis="NORMAL", nStates = 2, asymptCov=FALSE, ... )
 
         if (lextras == 1)
         {   control <- args[[1]]
-            nnames <- names(extras[[1]])
+            nnames <- names(extras)
             if ( !is.null(nnames) )
                 if ( (nnames != '') && (nnames != 'control') )
                 {   nerror <- sprintf("unknown '%s' parameter.\n", nnames)

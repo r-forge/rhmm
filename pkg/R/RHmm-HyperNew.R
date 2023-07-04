@@ -4,12 +4,12 @@
  #### File: RHmm-HyperNew.R 
  ####                                                         
  #### Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr>
- #### Author: Sebastian BAUER <mail@sebastianbauer.info>
+ #### Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ####                                                         
  ###############################################################
 
 tolMin <- .Machine$double.eps*100
-# Parameter constraints
+# Contraintes sur les paramètres
 eProba <- 1
 eVar <- 2
 eCor <- 3
