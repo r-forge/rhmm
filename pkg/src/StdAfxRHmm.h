@@ -4,11 +4,20 @@
  *** File: StdAfxRHmm.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
-#include "OTMathUtil.h"
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: StdAfxRHmm.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
 #include "StatUtil.h"
 #include "LogProb.h"
 #include "SamplesUtil.h"

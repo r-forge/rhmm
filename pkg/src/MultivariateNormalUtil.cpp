@@ -4,7 +4,17 @@
  *** File: MultivariateNormalUtil.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: MultivariateNormalUtil.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -17,7 +27,7 @@ void SymetricInverseAndDet(cDMatrix& theMat, double& theDet, cDMatrix& theInvMat
 
 void MultivariateNormalDensity(cDVector& thex, cDVector& theMu, cDMatrix& theInvCov, double theDet, double*  theDens)
 {
-uint i, j, t ;
+register uint i, j, t ;
 double  myAux, myRapport ;
 
 uint myDimObs = theMu.mSize ;   
@@ -36,7 +46,7 @@ uint myT = thex.mSize / myDimObs ;
 
 void MultivariateNormalDensity(cDVector& thex, cDVector& theMu, cDMatrix& theInvCov, double theDet, cDVector&  theDens)
 {
-uint i, j, t ;
+register uint i, j, t ;
 double  myAux, myRapport ;
 
 uint myDimObs = theMu.mSize ;   
@@ -60,14 +70,14 @@ cDMatrix myCovPrime = Zeros(mySize, mySize) ;
 cDMatrix myCovSeconde = Zeros(mySize, mySize) ;
 //uint myNParam = mySize*(mySize+1)/2 ;
 uint k = 0 ;
-        for (uint i = 0 ; i < mySize ; i++)
-                for (uint j = i ; j < mySize ; j++)
+        for (register uint i = 0 ; i < mySize ; i++)
+                for (register uint j = i ; j < mySize ; j++)
                 {       myCovPrime[i][j] = myCovPrime[j][i] = 1.0 ;
                 cDMatrix myAuxMat = myCovPrime * theInvCov ;
                         theGrad[k] = -1.0 * theInvCov * myAuxMat ;
                 uint l = 0 ;
-                        for (uint p = 0 ; p < mySize ; p++)
-                                for (uint q = p ; q < mySize ; q++)
+                        for (register uint p = 0 ; p < mySize ; p++)
+                                for (register uint q = p ; q < mySize ; q++)
                                 {       myCovSeconde[p][q] = myCovSeconde[q][p] = 1.0 ;
                                         theHess[k][l] = theHess[l][k] = -1 * theInvCov * myCovSeconde * theGrad[k] - theGrad[k] * myCovSeconde * theInvCov ;
                                         l++ ;
@@ -84,8 +94,8 @@ void SymDetDeriv(cDMatrix& theMat, cDVector& theGrad, cDMatrix& theHess)
 cDMatrix myAuxMat = theMat ;
 uint myNCol = theMat.GetNCols() ;
 uint k = 0 ;
-        for (uint i = 0 ; i < myNCol ; i++)
-        {       for (uint j = i ; j < myNCol ; j++)
+        for (register uint i = 0 ; i < myNCol ; i++)
+        {       for (register uint j = i ; j < myNCol ; j++)
                 {       myAuxMat[i][j] = myAuxMat[j][i] = 0 ;
                 double myG0 = LapackDet(myAuxMat) ;
                         myAuxMat[i][j] = myAuxMat[j][i] = 1.0 ;
@@ -139,8 +149,8 @@ cDMatrix myInvZ = Zeros(9,9) ;
 
 cDMatrix myInd(9,2) ;
         k = 0 ;
-                for (int i =-1 ; i < 2 ; i++)
-                        for (int j = -1 ; j < 2 ; j++)
+                for (register int i =-1 ; i < 2 ; i++)
+                        for (register int j = -1 ; j < 2 ; j++)
                         {       myInd[k][0] = (double)i ;
                                 myInd[k][1] = (double)j ;
                                 k++ ;
@@ -149,16 +159,16 @@ cDMatrix myInd(9,2) ;
         k = 0 ;
         myAuxMat = theMat ;
 cDVector myG(9) ;
-        for (uint i = 0 ; i < myNCol ; i++)
-        {       for (uint j = i ; j < myNCol ; j++)
+        for (register uint i = 0 ; i < myNCol ; i++)
+        {       for (register uint j = i ; j < myNCol ; j++)
                 {       
                 uint l = 0 ;
                 double myx = theMat[i][j] ;
-                        for (uint p = 0 ; p < myNCol ; p++)
-                        {       for (uint q = p ; q < myNCol ; q++)
+                        for (register uint p = 0 ; p < myNCol ; p++)
+                        {       for (register uint q = p ; q < myNCol ; q++)
                                 {       
                                 double myy = theMat[p][q] ;     
-                                        for (uint r = 0 ; r < 9 ; r++)
+                                        for (register uint r = 0 ; r < 9 ; r++)
                                         {       myAuxMat[i][j]= myAuxMat[j][i] = myInd[r][0] ;
                                                 myAuxMat[p][q]=myAuxMat[q][p] = myInd[r][1] ;
                                                 myG[r] = LapackDet(myAuxMat) ;
@@ -199,16 +209,16 @@ cDMatrix myHessDet(myNCovParam, myNCovParam) ;
         SymDetDeriv(theCov, myGradDet, myHessDet) ;
 cDMatrix* myGradInvCov = new cDMatrix[myNCovParam] ;
 cDMatrix** myHessInvCov = new cDMatrix*[myNCovParam] ;
-        for (uint k = 0 ; k < myNCovParam ; k++)
+        for (register uint k = 0 ; k < myNCovParam ; k++)
         {       myGradInvCov[k].ReAlloc(myNCovParam, myNCovParam) ;
                 myHessInvCov[k] = new cDMatrix[myNCovParam] ;
-                for (uint l = 0 ; l < myNCovParam ; l++)
+                for (register uint l = 0 ; l < myNCovParam ; l++)
                         myHessInvCov[k][l].ReAlloc(myNCovParam, myNCovParam) ;
         }
         InvCovMatDeriv(theInvCov, myGradInvCov, myHessInvCov) ;
 
 //
-        for (uint t = 0 ; t < myT ; t++)
+        for (register uint t = 0 ; t < myT ; t++)
         {
         // Derivée par rapport à Mu
         cDVector myx(myDimObs) ;
@@ -251,8 +261,8 @@ cDMatrix** myHessInvCov = new cDMatrix*[myNCovParam] ;
                 myHessLambda2 += 0.5*theDensity[t]*myGradDet*Transpose(myGradDet)/(theDet*theDet) ;
                 if (theDensity[t] != 0.0)
                         myHessLambda2 += myGradLambda * Transpose(myGradLambda)/theDensity[t] ;
-                for (uint k = 0 ; k < myNCovParam ; k++)
-                        for (uint l = k ; l < myNCovParam ; l++)
+                for (register uint k = 0 ; k < myNCovParam ; k++)
+                        for (register uint l = k ; l < myNCovParam ; l++)
                         {
                         double myDoubleAux =  AsDouble(Transpose(myx)*myHessInvCov[k][l] * myx) * theDensity[t] ;
                                 myHessLambda2[k][l] -= 0.5*myDoubleAux ;
@@ -262,9 +272,9 @@ cDMatrix** myHessInvCov = new cDMatrix*[myNCovParam] ;
                 SetSubMatrix(myHessLambda2, myDimObs, myDimObs, theHess[t]) ;
         }
 
-        for (uint i = 0 ; i < myNCovParam ; i++)
+        for (register uint i = 0 ; i < myNCovParam ; i++)
         {       myGradInvCov[i].Delete() ;
-                for (uint j = 0 ; j < myNCovParam ; j++)
+                for (register uint j = 0 ; j < myNCovParam ; j++)
                         myHessInvCov[i][j].Delete() ;
                 delete [] myHessInvCov[i] ;
         }

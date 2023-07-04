@@ -4,7 +4,17 @@
  *** File: cInParam.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cInParam.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -20,7 +30,7 @@ cInParam::cInParam(uint theNSample, uint theDimObs, cDVector* theY, distrDefinit
         mDimObs = theDimObs ;
         if (mNSample > 0)
         {       mY = new cDVector[mNSample] ;
-                for (uint i = 0 ; i < mNSample ; i++)
+                for (register uint i = 0 ; i < mNSample ; i++)
                         mY[i] = theY[i] ;
         }
         else
@@ -29,7 +39,7 @@ cInParam::cInParam(uint theNSample, uint theDimObs, cDVector* theY, distrDefinit
 cInParam::~cInParam()
 {       MESS_DESTR("cInParam")
         if (mNSample != 0)
-        {       for (uint i = 0 ; i < mNSample ; i++)
+        {       for (register uint i = 0 ; i < mNSample ; i++)
                         mY[i].Delete() ;
                 delete [] mY ;
                 mNSample = 0 ;
@@ -41,7 +51,7 @@ cInParam &cInParam::operator =(const cInParam &theSrc)
         mDistrType = theSrc.mDistrType ;                
         mNClass = theSrc.mNClass ;
         if (mNSample > 0)
-        {       for (uint i = 0 ; i < mNSample ; i++)
+        {       for (register uint i = 0 ; i < mNSample ; i++)
                         mY[i].Delete() ;
                 delete mY ;
         }
@@ -52,7 +62,7 @@ cInParam &cInParam::operator =(const cInParam &theSrc)
         mNProba = theSrc.mNProba ;
         mNMixt = theSrc.mNMixt ;
         
-        for (uint i = 0 ; i < mNSample ; i++)
+        for (register uint i = 0 ; i < mNSample ; i++)
                 mY[i] = theSrc.mY[i] ;
         
         return(*this) ;
@@ -61,6 +71,6 @@ cInParam &cInParam::operator =(const cInParam &theSrc)
 void cInParam::Print(void)
 {
         Rprintf("NbSample = %d\n", mNSample) ;
-        for (uint n = 0 ; n < mNSample ; n++)
+        for (register uint n = 0 ; n < mNSample ; n++)
                 Rprintf("mT[%d]=%d\n", n, mY[n].mSize) ;
 }

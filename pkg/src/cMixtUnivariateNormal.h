@@ -4,7 +4,17 @@
  *** File: cMixtUnivariateNormal.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cMixtUnivariateNormal.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 

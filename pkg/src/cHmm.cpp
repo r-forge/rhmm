@@ -4,7 +4,17 @@
  *** File: cHmm.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cHmm.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -92,9 +102,9 @@ cHmm & cHmm::operator = (cHmm &theSrc)
         mInitProba = theSrc.mInitProba ;
         this->mTransMatVector = theSrc.mTransMatVector ;
 
-                /*      for (uint i = 0 ; i < mvQ ; i++)
+                /*      for (register uint i = 0 ; i < mvQ ; i++)
         {       mInitProba[i] = theSrc.mInitProba[i] ;
-                for (uint j = 0 ; j < mvQ ; j++)
+                for (register uint j = 0 ; j < mvQ ; j++)
                         mTransMat[i][j] = theSrc.mTransMat[i][j] ;
         }
 */
@@ -104,7 +114,7 @@ cHmm & cHmm::operator = (cHmm &theSrc)
 
 void cHmm::Print(void)
 {
-uint   i, j, k;
+register uint   i, j, k;
 
         Rprintf("ProbInit :\n") ;
         for (i = 0 ; i < mInitProba.mSize ; i++)
@@ -141,17 +151,17 @@ uint myNClass = mInitProba.mSize ;
 void cHmm::SetParam(cDVector& theParam) 
 {
 uint myNClass = mInitProba.mSize ;
-uint k = 0 ;
+register uint k = 0 ;
         
         mInitProba[myNClass-1] = 1.0 ;
-        for (uint n = 0 ; n < myNClass - 1 ; n++)
+        for (register uint n = 0 ; n < myNClass - 1 ; n++)
         {       mInitProba[n] = theParam[k++] ;
                 mInitProba[myNClass-1] -= mInitProba[n] ;
         }
 
-        for (uint n = 0 ; n < myNClass ; n++)
+        for (register uint n = 0 ; n < myNClass ; n++)
         {       mTransMatVector[0][n][myNClass-1] = 1.0 ;
-                for (uint p = 0 ; p < myNClass - 1 ; p++)
+                for (register uint p = 0 ; p < myNClass - 1 ; p++)
                 {       mTransMatVector[0][n][p] = theParam[k++] ;
                         mTransMatVector[0][n][myNClass-1] -= mTransMatVector[0][n][p] ; // FIXME
                 }
@@ -162,11 +172,11 @@ uint k = 0 ;
 void cHmm::GetParam(cDVector& theParam) 
 {
 uint myNClass = mInitProba.mSize ; 
-uint k = 0 ;
-        for (uint n = 0 ; n < myNClass - 1 ; n++)
+register uint k = 0 ;
+        for (register uint n = 0 ; n < myNClass - 1 ; n++)
                 theParam[k++] = mInitProba[n] ;
-        for (uint n = 0 ; n < myNClass ; n++)
-                for (uint p = 0 ; p < myNClass - 1 ; p++)
+        for (register uint n = 0 ; n < myNClass ; n++)
+                for (register uint p = 0 ; p < myNClass - 1 ; p++)
                         theParam[k++] = mTransMatVector[0][n][p] ; // FIXME
         mDistrParam->GetParam(k, theParam) ;
 }

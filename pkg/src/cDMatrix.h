@@ -4,7 +4,17 @@
  *** File: cDMatrix.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cDMatrix.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -20,7 +30,7 @@
 
 #include "cOTError.h"
 #include "cDVector.h"
-#include "R_ext/Lapack.h"
+#include <R_ext/Lapack.h>
 #ifndef D_PRECISION
         #define D_PRECISION 16
 #endif //D_PRECISION

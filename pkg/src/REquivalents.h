@@ -4,7 +4,17 @@
  *** File: REquivalents.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: REquivalents.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -25,7 +35,7 @@
     #define printf std::printf
     #define pow std::pow
     #define sqrt std::sqrt
-#endif // __SUNPRO_CC
+#endif __SUNPRO_CC
 
 #define Rprintf printf
 inline void GetRNGstate(void) { std::srand( (unsigned)time( NULL ) ); }

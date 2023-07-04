@@ -4,7 +4,17 @@
  *** File: cLogBaumWelch.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cLogBaumWelch.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -34,13 +44,13 @@ cLogBaumWelch::cLogBaumWelch(uint theNSample, uint* theT, uint theNClass)
         mLogXsi = new cDMatrix*[mvNSample] ;
         mSumLogXsi = new cDMatrix[mvNSample] ;
         mLogRho = new cDVector[mvNSample] ;
-        for (uint n = 0 ; n < mvNSample ; n++)
+        for (register uint n = 0 ; n < mvNSample ; n++)
         {       mvT[n] = theT[n] ;
                 mLogAlpha[n].ReAlloc(theNClass, mvT[n]) ;
                 mLogBeta[n].ReAlloc(theNClass, mvT[n]) ;
                 mLogGamma[n].ReAlloc(theNClass, mvT[n]) ;
                 mLogXsi[n] = new cDMatrix[mvT[n]] ;
-                for (uint t = 0 ; t < mvT[n] ; t++)
+                for (register uint t = 0 ; t < mvT[n] ; t++)
                         mLogXsi[n][t].ReAlloc(theNClass, theNClass) ;
                 mSumLogXsi[n].ReAlloc(theNClass, theNClass) ;
                 mLogRho[n].ReAlloc(mvT[n]) ;
@@ -69,13 +79,13 @@ cLogBaumWelch::cLogBaumWelch(const cInParam &theInParam)
         mLogXsi = new cDMatrix*[mvNSample] ;
         mSumLogXsi = new cDMatrix[mvNSample] ;
         mLogRho = new cDVector[mvNSample] ;
-        for (uint n = 0 ; n < mvNSample ; n++)
+        for (register uint n = 0 ; n < mvNSample ; n++)
         {       mvT[n] = (theInParam.mY[n].mSize)/theInParam.mDimObs ;
                 mLogAlpha[n].ReAlloc(theInParam.mNClass, mvT[n]) ;
                 mLogBeta[n].ReAlloc(theInParam.mNClass, mvT[n]) ;
                 mLogGamma[n].ReAlloc(theInParam.mNClass, mvT[n]) ;
                 mLogXsi[n] = new cDMatrix[mvT[n]] ;
-                for (uint t=0 ; t < mvT[n] ; t++)
+                for (register uint t=0 ; t < mvT[n] ; t++)
                         mLogXsi[n][t].ReAlloc(theInParam.mNClass, theInParam.mNClass) ;
                 mSumLogXsi[n].ReAlloc(theInParam.mNClass, theInParam.mNClass) ;
                 mLogRho[n].ReAlloc(mvT[n]) ;
@@ -85,11 +95,11 @@ cLogBaumWelch::cLogBaumWelch(const cInParam &theInParam)
 cLogBaumWelch::~cLogBaumWelch()
 {       MESS_DESTR("cLogBaumWelch") 
         if (mvNSample > 0)
-        {       for (uint n = 0 ; n < mvNSample ; n++)
+        {       for (register uint n = 0 ; n < mvNSample ; n++)
                 {       mLogAlpha[n].Delete() ;
                         mLogBeta[n].Delete() ;
                         mLogGamma[n].Delete() ;
-                        for (uint t = 0 ; t < mvT[n] ; t++)
+                        for (register uint t = 0 ; t < mvT[n] ; t++)
                                 mLogXsi[n][t].Delete() ;
                         delete [] mLogXsi[n] ;
                         mSumLogXsi[n].Delete() ;
@@ -107,15 +117,15 @@ cLogBaumWelch::~cLogBaumWelch()
 
 void cLogBaumWelch::LogForwardBackward(cDMatrix* theCondProba, cHmm& theHMM)
 {
-uint   i,
+register uint   i,
                                 j               ;
-int    t               ;
+register int    t               ;
 double                  myLogAlpha,
                                 myAux,
                                 mySum   ;
 uint myNClass = theHMM.mInitProba.mSize ;
 
-        for (uint n = 0 ; n < mvNSample ; n++)
+        for (register uint n = 0 ; n < mvNSample ; n++)
         {
                 int myT = (int)mvT[n] ;
 

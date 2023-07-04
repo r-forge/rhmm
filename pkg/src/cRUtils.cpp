@@ -4,7 +4,17 @@
  *** File: cRUtils.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cRUtils.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -35,7 +45,7 @@ SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
 void cRUtil::GetValSexp(SEXP theSEXP, uint theNum, char* theVal)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        strcpy(theVal, CHAR(STRING_ELT(myAux, 0))) ;
+        sprintf(theVal, CHAR(STRING_ELT(myAux, 0))) ;
 }
 void cRUtil::GetValSexp(SEXP theSEXP, uint theNum, SEXP &theVal)
 {
@@ -48,26 +58,26 @@ void cRUtil::GetValSexp(SEXP theSEXP, uint theNum, SEXP &theVal)
 void cRUtil::GetVectSexp(SEXP theSEXP, uint theNum, uint theDim, int* theVal)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
                 theVal[i] = INTEGER(myAux)[i] ;
 }
 void cRUtil::GetVectSexp(SEXP theSEXP, uint theNum, uint theDim, uint* theVal)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
                 theVal[i] = INTEGER(myAux)[i] ;
 }
 
 void cRUtil::GetVectSexp(SEXP theSEXP, uint theNum, uint theDim, double* theVal)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
                 theVal[i] = REAL(myAux)[i] ;
 }
 void cRUtil::GetVectSexp(SEXP theSEXP, uint theNum, cDVector& theVal)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theVal.mSize ; i++)
+        for (register uint i = 0 ; i < theVal.mSize ; i++)
                 theVal[i] = REAL(myAux)[i] ;
 }
 /*
@@ -76,30 +86,30 @@ SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
 void cRUtil::GetMatSexp(SEXP theSEXP, uint theNum, uint theLigne, uint theCol, int** theMat)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theLigne ; i++)
-                for (uint j = 0 ; j < theCol ; j++)
+        for (register uint i = 0 ; i < theLigne ; i++)
+                for (register uint j = 0 ; j < theCol ; j++)
                         theMat[i][j] = INTEGER(myAux)[i+j*theLigne] ;
 }
 void cRUtil::GetMatSexp(SEXP theSEXP, uint theNum, uint theLigne, uint theCol, uint** theMat)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theLigne ; i++)
-                for (uint j = 0 ; j < theCol ; j++)
+        for (register uint i = 0 ; i < theLigne ; i++)
+                for (register uint j = 0 ; j < theCol ; j++)
                         theMat[i][j] = INTEGER(myAux)[i+j*theLigne] ;
 }
 void cRUtil::GetMatSexp(SEXP theSEXP, uint theNum, uint theLigne, uint theCol, double** theMat)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theLigne ; i++)
-                for (uint j = 0 ; j < theCol ; j++)
+        for (register uint i = 0 ; i < theLigne ; i++)
+                for (register uint j = 0 ; j < theCol ; j++)
                         theMat[i][j] = REAL(myAux)[i+j*theLigne] ;
 }
 
 void cRUtil::GetMatSexp(SEXP theSEXP, uint theNum, cDMatrix& theMat)
 {
 SEXP myAux = VECTOR_ELT(theSEXP, theNum) ;
-        for (uint i = 0 ; i < theMat.mNRow ; i++)
-                for (uint j = 0 ; j < theMat.mNCol ; j++)
+        for (register uint i = 0 ; i < theMat.mNRow ; i++)
+                for (register uint j = 0 ; j < theMat.mNCol ; j++)
                 {       theMat[i][j] = REAL(myAux)[i+j*theMat.mNRow] ;
                 }
 }
@@ -187,14 +197,14 @@ void cRUtil::GetListValSexp(SEXP theSEXP, uint theNum, uint theNElt, int* theVal
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetValSexp(myAux, i, theVal[i]) ;
 }
 void cRUtil::GetListValSexp(SEXP theSEXP, uint theNum, uint theNElt, uint* theVal)
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetValSexp(myAux, i, theVal[i]) ;
 }
 
@@ -202,7 +212,7 @@ void cRUtil::GetListValSexp(SEXP theSEXP, uint theNum, uint theNElt, double* the
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetValSexp(myAux, i, theVal[i]) ;
 }
 
@@ -213,28 +223,28 @@ void cRUtil::GetListVectSexp(SEXP theSEXP, uint theNum, uint theNElt, uint theDi
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetVectSexp(myAux, i, theDim, theVal[i]) ;
 }
 void cRUtil::GetListVectSexp(SEXP theSEXP, uint theNum, uint theNElt, uint theDim, uint** theVal)
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetVectSexp(myAux, i, theDim, theVal[i]) ;
 }
 void cRUtil::GetListVectSexp(SEXP theSEXP, uint theNum, uint theNElt, uint theDim, double** theVal)
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetVectSexp(myAux, i, theDim, theVal[i]) ;
 }
 void cRUtil::GetListVectSexp(SEXP theSEXP, uint theNum, uint theNElt, cDVector* theVal)
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       GetVectSexp(myAux, i, theVal[i]) ;
         }
 }
@@ -245,7 +255,7 @@ void cRUtil::GetListMatSexp(SEXP theSEXP, uint theNum, uint theNElt, uint theLig
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetMatSexp(myAux, i, theLigne, theCol, theVal[i]) ;
 }
 
@@ -253,7 +263,7 @@ void cRUtil::GetListMatSexp(SEXP theSEXP, uint theNum, uint theNElt, uint theLig
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetMatSexp(myAux, i, theLigne, theCol, theVal[i]) ;
 }
 
@@ -261,7 +271,7 @@ void cRUtil::GetListMatSexp(SEXP theSEXP, uint theNum, uint theNElt, uint theLig
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetMatSexp(myAux, i,theLigne, theCol, theVal[i]) ;
 }
 
@@ -269,7 +279,7 @@ void cRUtil::GetListMatSexp(SEXP theSEXP, uint theNum, uint theNElt, cDMatrix* t
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
                 GetMatSexp(myAux, i, theVal[i]) ;
 }
 
@@ -280,7 +290,7 @@ void cRUtil::GetListListVectSexp(SEXP theSEXP, uint theNum, uint theNList1, uint
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNList1 ; i++)
+        for (register uint i = 0 ; i < theNList1 ; i++)
         {       GetListVectSexp(myAux, i, theNList2, theVect[i]) ;
         }
 }
@@ -292,7 +302,7 @@ void cRUtil::GetListListMatSexp(SEXP theSEXP, uint theNum, uint theNList1, uint 
 {
 SEXP myAux ;
         GetValSexp(theSEXP, theNum, myAux) ;
-        for (uint i = 0 ; i < theNList1 ; i++)
+        for (register uint i = 0 ; i < theNList1 ; i++)
                 GetListMatSexp(myAux, i, theNList2, theMat[i]) ;
 
 }
@@ -321,27 +331,27 @@ void cRUtil::set_val_sexp(double theVal, SEXP &theSEXP)
 void cRUtil::SetVectSexp(int *theVect, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP=allocVector(INTSXP, theDim)) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
                 INTEGER(theSEXP)[i] = theVect[i] ;
 }
 
 void cRUtil::SetVectSexp(uint *theVect, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP=allocVector(INTSXP, theDim)) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
                 INTEGER(theSEXP)[i] = theVect[i] ;
 }
 
 void cRUtil::SetVectSexp(double *theVect, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP=allocVector(REALSXP, theDim)) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
                 REAL(theSEXP)[i] = theVect[i] ;
 }
 void cRUtil::SetVectSexp(cDVector& theVect, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP=allocVector(REALSXP, theVect.mSize)) ;
-        for (uint i = 0 ; i < theVect.mSize ; i++)
+        for (register uint i = 0 ; i < theVect.mSize ; i++)
                 REAL(theSEXP)[i] = theVect[i] ;
 }
 
@@ -352,32 +362,32 @@ void cRUtil::SetVectSexp(cDVector& theVect, SEXP &theSEXP)
 void cRUtil::SetMatSexp(int **theMat, uint theLigne, uint theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocMatrix(INTSXP, theLigne, theCol)) ;
-        for (uint i = 0 ; i < theLigne ; i++)
-                for (uint j = 0 ; j < theCol ; j++)
+        for (register uint i = 0 ; i < theLigne ; i++)
+                for (register uint j = 0 ; j < theCol ; j++)
                         INTEGER(theSEXP)[i+j*theLigne] = theMat[i][j] ;
 }
 
 void cRUtil::SetMatSexp(uint **theMat, uint theLigne, uint theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocMatrix(INTSXP, theLigne, theCol)) ;
-        for (uint i = 0 ; i < theLigne ; i++)
-                for (uint j = 0 ; j < theCol ; j++)
+        for (register uint i = 0 ; i < theLigne ; i++)
+                for (register uint j = 0 ; j < theCol ; j++)
                         INTEGER(theSEXP)[i+j*theLigne] = theMat[i][j] ;
 }
 
 void cRUtil::SetMatSexp(double** theMat, uint theLigne, uint theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocMatrix(REALSXP, theLigne, theCol)) ;
-        for (uint i = 0 ; i < theLigne ; i++)
-                for (uint j = 0 ; j < theCol ; j++)
+        for (register uint i = 0 ; i < theLigne ; i++)
+                for (register uint j = 0 ; j < theCol ; j++)
                         REAL(theSEXP)[i+j*theLigne] = theMat[i][j] ;
 }
 
 void cRUtil::SetMatSexp(cDMatrix& theMat, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocMatrix(REALSXP, theMat.mNRow, theMat.mNCol)) ;
-        for (uint i = 0 ; i < theMat.mNRow ; i++)
-                for (uint j = 0 ; j <  theMat.mNCol ; j++)
+        for (register uint i = 0 ; i < theMat.mNRow ; i++)
+                for (register uint j = 0 ; j <  theMat.mNCol ; j++)
                         REAL(theSEXP)[i+j*theMat.mNRow] = theMat[i][j] ;
 }
 
@@ -387,7 +397,7 @@ void cRUtil::SetMatSexp(cDMatrix& theMat, SEXP &theSEXP)
 void cRUtil::SetListValSexp(int* theVal, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theDim)) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
         {       SEXP myAux ;
                 set_val_sexp(theVal[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -397,7 +407,7 @@ void cRUtil::SetListValSexp(int* theVal, uint theDim, SEXP &theSEXP)
 void cRUtil::SetListValSexp(uint* theVal, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theDim)) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
         {       SEXP myAux ;
                 set_val_sexp(theVal[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -407,7 +417,7 @@ void cRUtil::SetListValSexp(uint* theVal, uint theDim, SEXP &theSEXP)
 void cRUtil::SetListValSexp(double* theVal, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theDim)) ;
-        for (uint i = 0 ; i < theDim ; i++)
+        for (register uint i = 0 ; i < theDim ; i++)
         {       SEXP myAux ;
                 set_val_sexp(theVal[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -416,7 +426,7 @@ void cRUtil::SetListValSexp(double* theVal, uint theDim, SEXP &theSEXP)
 void cRUtil::SetListValSexp(cDVector& theVal, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theVal.mSize)) ;
-        for (uint i = 0 ; i < theVal.mSize ; i++)
+        for (register uint i = 0 ; i < theVal.mSize ; i++)
         {       SEXP myAux ;
                 set_val_sexp(theVal[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -429,7 +439,7 @@ void cRUtil::SetListValSexp(cDVector& theVal, SEXP &theSEXP)
 void cRUtil::SetListVectSexp(int** theVal, uint theNElt, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetVectSexp(theVal[i], theDim, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -439,7 +449,7 @@ void cRUtil::SetListVectSexp(int** theVal, uint theNElt, uint theDim, SEXP &theS
 void cRUtil::SetListVectSexp(uint** theVal, uint theNElt, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetVectSexp(theVal[i], theDim, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -449,7 +459,7 @@ void cRUtil::SetListVectSexp(uint** theVal, uint theNElt, uint theDim, SEXP &the
 void cRUtil::SetListVectSexp(double** theVal, uint theNElt, uint theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux  ;
                 SetVectSexp(theVal[i], theDim, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -461,7 +471,7 @@ void cRUtil::SetListVectSexp(double** theVal, uint theNElt, uint theDim, SEXP &t
 void cRUtil::SetListVectSexp(int** theVal, uint theNElt, uint *theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetVectSexp(theVal[i], theDim[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -471,7 +481,7 @@ void cRUtil::SetListVectSexp(int** theVal, uint theNElt, uint *theDim, SEXP &the
 void cRUtil::SetListVectSexp(uint** theVal, uint theNElt, uint *theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetVectSexp(theVal[i], theDim[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -481,7 +491,7 @@ void cRUtil::SetListVectSexp(uint** theVal, uint theNElt, uint *theDim, SEXP &th
 void cRUtil::SetListVectSexp(double** theVal, uint theNElt, uint *theDim, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux  ;
                 SetVectSexp(theVal[i], theDim[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -492,7 +502,7 @@ void cRUtil::SetListVectSexp(double** theVal, uint theNElt, uint *theDim, SEXP &
 void cRUtil::SetListVectSexp(cDVector* theVal, uint theNElt, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux  ;
                 SetVectSexp(theVal[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -521,7 +531,7 @@ void cRUtil::SetListVectSexp(cDMatrix& theVal, SEXP &theSEXP)
 void cRUtil::SetListMatSexp(int*** theVal, uint theNElt, uint theLigne, uint theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], theLigne, theCol, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -530,7 +540,7 @@ void cRUtil::SetListMatSexp(int*** theVal, uint theNElt, uint theLigne, uint the
 void cRUtil::SetListMatSexp(uint*** theVal, uint theNElt, uint theLigne, uint theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], theLigne, theCol, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -539,7 +549,7 @@ void cRUtil::SetListMatSexp(uint*** theVal, uint theNElt, uint theLigne, uint th
 void cRUtil::SetListMatSexp(double*** theVal, uint theNElt, uint theLigne, uint theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], theLigne, theCol, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -551,7 +561,7 @@ void cRUtil::SetListMatSexp(double*** theVal, uint theNElt, uint theLigne, uint 
 void cRUtil::SetListMatSexp(int*** theVal, uint theNElt, uint *theLigne, uint *theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], theLigne[i], theCol[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -560,7 +570,7 @@ void cRUtil::SetListMatSexp(int*** theVal, uint theNElt, uint *theLigne, uint *t
 void cRUtil::SetListMatSexp(uint*** theVal, uint theNElt, uint *theLigne, uint *theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], theLigne[i], theCol[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -569,7 +579,7 @@ void cRUtil::SetListMatSexp(uint*** theVal, uint theNElt, uint *theLigne, uint *
 void cRUtil::SetListMatSexp(double*** theVal, uint theNElt, uint *theLigne, uint *theCol, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], theLigne[i], theCol[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -580,7 +590,7 @@ void cRUtil::SetListMatSexp(double*** theVal, uint theNElt, uint *theLigne, uint
 void cRUtil::SetListMatSexp(cDMatrix* theVal, uint theNElt, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNElt)) ;
-        for (uint i = 0 ; i < theNElt ; i++)
+        for (register uint i = 0 ; i < theNElt ; i++)
         {       SEXP myAux ;
                 SetMatSexp(theVal[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -594,7 +604,7 @@ void cRUtil::SetListListVectSexp(cDVector** theVect, uint theNList1, uint theNLi
 {
         mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNList1)) ;
-        for (uint i = 0 ; i < theNList1 ; i++)
+        for (register uint i = 0 ; i < theNList1 ; i++)
         {       SEXP myAux ;
                 SetListVectSexp(theVect[i], theNList2, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -608,7 +618,7 @@ void cRUtil::SetListListVectSexp(cDVector** theVect, uint theNList1, uint theNLi
 void cRUtil::SetListListMatSexp(cDMatrix** theMat, uint theNList1, uint theNList2, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNList1)) ;
-        for (uint i = 0 ; i < theNList1 ; i++)
+        for (register uint i = 0 ; i < theNList1 ; i++)
         {       SEXP myAux ;
                 SetListMatSexp(theMat[i], theNList2, myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;
@@ -618,7 +628,7 @@ void cRUtil::SetListListMatSexp(cDMatrix** theMat, uint theNList1, uint theNList
 void cRUtil::SetListListMatSexp(cDMatrix** theMat, uint theNList1, uint* theNList2, SEXP &theSEXP)
 {       mvNbProtect++ ;
         PROTECT(theSEXP = allocVector(VECSXP, theNList1)) ;
-        for (uint i = 0 ; i < theNList1 ; i++)
+        for (register uint i = 0 ; i < theNList1 ; i++)
         {       SEXP myAux ;
                 SetListMatSexp(theMat[i], theNList2[i], myAux) ;
                 SET_VECTOR_ELT(theSEXP, i, myAux) ;

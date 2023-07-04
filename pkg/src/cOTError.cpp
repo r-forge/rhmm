@@ -4,7 +4,17 @@
  *** File: cOTError.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cOTError.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -12,15 +22,12 @@
 
 cOTError::cOTError(const char *theMess)
 {
-        if (!theMess)
-        {
-                theMess = "Unknown error";
-        }
-
+        if (theMess != (char *)NULL) 
 #ifndef _RDLL_
-        std::cerr << theMess << std::endl;
-        exit(0);
+                        std::cout << theMess << std::endl ;
+                        exit(0) ;
 #else
-        error(theMess);
+                        error(theMess) ;
 #endif //_RDLL_
+
 }

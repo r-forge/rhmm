@@ -4,7 +4,17 @@
  *** File: cHmmFit.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cHmmFit.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -42,7 +52,7 @@ void cHmmFit::BaumWelchAlgo(cBaumWelchInParam& theInParam)
 uint    myNbIter ;
 double  myLogVraisCour,
                 myRap ;
-uint   i,
+register uint   i,
                                 j,
                                 n ;
 uint    myT = 0 ;
@@ -79,7 +89,7 @@ cDMatrix* myProbaCond = new cDMatrix[theInParam.mNSample] ;
                 {          
                 double myDenominateur = 0.0 ;
                         for (n = 0 ; n < theInParam.mNSample ; n++)
-                        {       for (uint t = 0 ; t < GetSampleSize(n)-1 ; t++)
+                        {       for (register uint t = 0 ; t < GetSampleSize(n)-1 ; t++)
                                         myDenominateur += mGamma[n][i][t] ;
                         }
                         for (j = 0 ; j < theInParam.mNClass ; j++)
@@ -131,34 +141,35 @@ uint myNFreeParam = GetNFreeParam()  ;
 void cHmmFit::BaumWelchAlgoInit(cBaumWelchInParam &theInParam)
 {
 #ifndef _RDLL_
-        if (theInParam.mInitType == eKMeans)
-        {
-                uint k ;
+                if (theInParam.mInitType == eKMeans)
+                {          
+                register uint k ;
                 uint myT = 0 ;
                                 for (k = 0 ; k < theInParam.mNSample ; k++)
                                                 myT += theInParam.mY[k].mSize  ;
                 myT /= theInParam.mDimObs ;
                 int* mySeq = new int[myT] ;
                 cDVector myY(myT*theInParam.mDimObs) ;
-                uint   t = 0,
+                register uint   t = 0,
                                                                                 i ;
                                 for (k = 0 ; k < theInParam.mNSample ; k++)
                                 {          uint myTT = theInParam.mY[k].mSize * theInParam.mDimObs ;
                                                 for (i = 0 ; i < myTT ; i++)
                                                                 myY[t++] = theInParam.mY[k][i] ;
                                 }
-
+//                        register uint j ;
+                                
                 double myInitValue = 1.0/(double)(theInParam.mNClass) ;
-                for (i = 0 ; i < this->mTransMatVector.size() ; i++)
-                        mTransMatVector[i] = myInitValue ;
+                for (int ii = 0 ; i < this->mTransMatVector.size() ; i++)
+                                                mTransMatVector[i] = myInitValue ;
                                 
-                mInitProba = 1.0/(double)(theInParam.mNClass) ;
+                                mInitProba = 1.0/(double)(theInParam.mNClass) ;
                                 
-                mDistrParam->InitParameters(theInParam) ;
-                delete mySeq ;
-                myY.Delete() ;
-                return ;
-        }
+                                mDistrParam->InitParameters(theInParam) ;
+                                delete mySeq ;
+                                myY.Delete() ;
+                                return ;
+                }
 #else
                 GetRNGstate();
 #endif /* _RDLL_ */
@@ -176,17 +187,17 @@ double  myLogVraisCour = -1e100 ;
                 else
                                 myParamEntree.mVerbose = 2 ;
 
-uint   t                                                                                                                                                                          ;
+register uint   t                                                                                                                                                                          ;
                 for (t = 0 ; t < theInParam.mNInitIter ; t++)
                 {          double  mySum = 0.0 ;
-                                uint i ;
+                                register uint i ;
                                 for (i = 0 ; i < myParamEntree.mNClass ; i++)
                                 {          myHMMFitCour.mInitProba[i]  = unif_rand() ;
                                                 mySum += myHMMFitCour.mInitProba[i] ;
                                 }
                                 myHMMFitCour.mInitProba /= mySum ;
                                 
-                                uint j ;
+                                register uint j ;
 
                                 for (i = 0 ; i < myParamEntree.mNClass ; i++)
                                 {          mySum = 0.0 ;
@@ -224,7 +235,7 @@ double cHmmFit::ComputeLLH(cBaumWelchInParam &theInParam, cDMatrix* theProbaCond
                 mDistrParam->ComputeCondProba(theInParam.mY, theInParam.mNSample, theProbaCond) ;
                 ForwardBackward(theProbaCond, *this) ;
 double  myLLH = 0.0 ;
-                for (uint i = 0 ; i < theInParam.mNSample ; i++)
+                for (register uint i = 0 ; i < theInParam.mNSample ; i++)
                                 myLLH += mLogVrais[i] ;
                 return myLLH ;
 }
@@ -237,7 +248,7 @@ uint myNParam = GetNParam() ;
 cDVector myVectInit(myNParam) ;
                 GetParam(myVectInit) ;
 cDVector myVectCour ; 
-                for (uint n = 0 ; n <  myNParam  ; n++)
+                for (register uint n = 0 ; n <  myNParam  ; n++)
                 {          theh[n] = MAX(fabs(myVectInit[n])*theDelta, theDelta*theDelta) ;
                                 myVectCour = myVectInit ;
                                 myVectCour[n] += theh[n] ;
@@ -255,10 +266,10 @@ uint myNParam = GetNParam() ;
 cDVector myVectInit(myNParam) ;
                 GetParam(myVectInit) ;
 cDVector myVectCour ; 
-                for (uint n = 0 ; n <  myNParam  ; n++)
+                for (register uint n = 0 ; n <  myNParam  ; n++)                
                                                 theh[n] = MAX(fabs(myVectInit[n])*theDelta, theDelta*theDelta) ;
-                for (uint n = 0 ; n < myNParam ; n++)
-                                for (uint p = n ; p < myNParam ; p++)
+                for (register uint n = 0 ; n < myNParam ; n++)
+                                for (register uint p = n ; p < myNParam ; p++)
                                 {                          myVectCour = myVectInit ;
                                                                 myVectCour[n] += theh[n] ;
                                                                 myVectCour[p] += theh[p] ;
@@ -273,7 +284,7 @@ uint myNParam = GetNParam() ;
                 theGrad.ReAlloc(myNParam) ;
 cDMatrix* myProbaCond = new cDMatrix[theInParam.mNSample] ; 
                 
-                for (uint n = 0 ; n < theInParam.mNSample ; n++)
+                for (register uint n = 0 ; n < theInParam.mNSample ; n++)
                                 myProbaCond[n].ReAlloc(theInParam.mNClass, theInParam.mY[n].mSize) ;
                 
 double myLLHInit = ComputeLLH(theInParam, myProbaCond) ;
@@ -281,10 +292,10 @@ double myLLHInit = ComputeLLH(theInParam, myProbaCond) ;
 cDVector           myValFunct(myNParam),
                                                 myh(myNParam) ;
                 ComputeFunction(theInParam, myValFunct, myh, myProbaCond, theDelta) ;
-                for (uint n = 0 ; n < myNParam ; n++)
+                for (register uint n = 0 ; n < myNParam ; n++)
                                 theGrad[n] = (myValFunct[n] - myLLHInit)/myh[n] ;
 
-                for (uint n = 0 ; n < theInParam.mNSample ; n++)
+                for (register uint n = 0 ; n < theInParam.mNSample ; n++)
                                 myProbaCond[n].Delete() ;
 
 }
@@ -295,7 +306,7 @@ uint myNParam = GetNParam() ;
                 theHess.ReAlloc(myNParam, myNParam) ;
 cDMatrix* myProbaCond = new cDMatrix[theInParam.mNSample] ; 
                 
-                for (uint n = 0 ; n < theInParam.mNSample ; n++)
+                for (register uint n = 0 ; n < theInParam.mNSample ; n++)
                                 myProbaCond[n].ReAlloc(theInParam.mNClass, theInParam.mY[n].mSize) ;
                 
 double myLLHInit = ComputeLLH(theInParam, myProbaCond) ;
@@ -304,10 +315,12 @@ cDVector           myValFunctGrad(myNParam),
                 ComputeFunction(theInParam, myValFunctGrad, myh, myProbaCond, theDelta) ;
 cDMatrix myValFuncthess(myNParam, myNParam) ;
                 ComputeFunction(theInParam, myValFuncthess, myh, myProbaCond, theDelta) ;
-                for (uint n = 0 ; n < myNParam ; n++)
-                                for (uint p = n ; p < myNParam ; p++)
+                for (register uint n = 0 ; n < myNParam ; n++)
+                                for (register uint p = n ; p < myNParam ; p++)
                                                 theHess[n][p] = theHess[p][n] = (myValFuncthess[n][p] - myValFunctGrad[n] - myValFunctGrad[p] + myLLHInit)/(myh[n]*myh[p]) ;
 
-                for (uint n = 0 ; n < theInParam.mNSample ; n++)
+                for (register uint n = 0 ; n < theInParam.mNSample ; n++)
                                 myProbaCond[n].Delete() ;
+//        delete myProbaCond ;
+
 }

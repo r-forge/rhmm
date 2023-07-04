@@ -4,7 +4,17 @@
  *** File: cBaumWelchInParam.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cBaumWelchInParam.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -16,12 +26,12 @@
 
 class cBaumWelchInParam : public cInParam
 {       public :
-                initEnum        mInitType               ; // Initialization type
-                uint            mNMaxIter               ; // Maximal number of iterations
-                double          mTol                    ; // Tolerance for baum welch algorithm
-                uint            mNInitIter              ; // Number of iterations for the initialization
-                uint            mNMaxIterInit   ; // Maximal number of iterations for the initialization
-                uint            mVerbose                ; // verbosity level, 0 quiet, 1 verbose
+                initEnum        mInitType               ; // Type d'initialisation de l'algo cBaumWelch
+                uint            mNMaxIter               ; // Nbre d'iterations max de l'algo
+                double          mTol                    ; // Tolérance Algor cBaumWelch
+                uint            mNInitIter              ; // Nbre d'itérations pour l'initialisation
+                uint            mNMaxIterInit   ; // Nbre d'iter max dans la procédure d'initialisation
+                uint            mVerbose                ; /* 0 rien, 1 imprime */
         public :
                 cBaumWelchInParam & operator =(const cBaumWelchInParam &theSrc) ;
                 cBaumWelchInParam(uint theNSample=0, uint theDimObs=0, cDVector *theY=NULL, distrDefinitionEnum theDistrType=eNormalDistr, uint theNClass=2, uint theNMixt=0, uint theNProba=0) ;

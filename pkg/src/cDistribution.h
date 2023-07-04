@@ -4,7 +4,17 @@
  *** File: cDistribution.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cDistribution.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -15,9 +25,6 @@
 #include "cBaumWelchInParam.h"
 #include "cBaumWelch.h"
 
-/**
- * Interface for all distribution classes.
- */
 class cDistribution  
 {       public :
                 virtual void ComputeCondProba(cDVector* theY, uint theNSample, cDMatrix* theCondProba)=0 ;

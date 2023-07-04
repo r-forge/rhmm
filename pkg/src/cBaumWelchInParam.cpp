@@ -4,7 +4,17 @@
  *** File: cBaumWelchInParam.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cBaumWelchInParam.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -39,7 +49,7 @@ cBaumWelchInParam &cBaumWelchInParam::operator =(const cBaumWelchInParam &theSrc
         mDistrType = theSrc.mDistrType ;                
         mNClass = theSrc.mNClass ;
         if (mNSample > 0)
-        {       for (uint i = 0 ; i < mNSample ; i++)
+        {       for (register uint i = 0 ; i < mNSample ; i++)
                         mY[i].Delete() ;
                 delete mY ;
         }
@@ -48,7 +58,7 @@ cBaumWelchInParam &cBaumWelchInParam::operator =(const cBaumWelchInParam &theSrc
         mDimObs = theSrc.mDimObs ;
         mNProba = theSrc.mNProba ;
         mNMixt = theSrc.mNMixt ;
-        for (uint i = 0 ; i < mNSample ; i++)
+        for (register uint i = 0 ; i < mNSample ; i++)
                 mY[i] = theSrc.mY[i] ;
         return *this ;
 }
@@ -56,6 +66,6 @@ cBaumWelchInParam &cBaumWelchInParam::operator =(const cBaumWelchInParam &theSrc
 void cBaumWelchInParam::Print(void)
 {
         Rprintf("NbSample = %d\n", mNSample) ;
-        for (uint n = 0 ; n < mNSample ; n++)
+        for (register uint n = 0 ; n < mNSample ; n++)
                 Rprintf("mT[%d]=%d\n", n, (mY[n].mSize)/mDimObs) ;
 }

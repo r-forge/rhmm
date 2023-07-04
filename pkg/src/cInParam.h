@@ -4,7 +4,17 @@
  *** File: cInParam.h 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: cInParam.h 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -17,12 +27,12 @@
 
 class cInParam
 {       public :
-                distrDefinitionEnum mDistrType ; // Distribution probability type
-                uint mNClass ; // Number of hidden states
+                distrDefinitionEnum mDistrType ; // Type de loi de proba
+                uint mNClass ; // Nombre de classes
                 uint mDimObs ; // Dimension des observations
-                uint mNMixt ; // Number of mixed distributions
-                uint mNProba ; // Number of discrete emission symbols
-                uint mNSample ; // Number of observed samples
+                uint mNMixt ; // Nombre de lois mélangées
+                uint mNProba ; // Nombre de proba discrètes
+                uint mNSample ; // Nombre d'échantillons
                 cDVector* mY ; // Tableau mNSample x mT[i] des observations
         public :
                 cInParam(uint theNSample, uint theDimObs, cDVector* theY, distrDefinitionEnum theDistrType=eNormalDistr, uint theNClass=2, uint theNMixt=0, uint theNProba=0) ;

@@ -4,7 +4,17 @@
  *** File: RHmm.cpp 
  ***                                                         
  *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <mail@sebastianbauer.info>
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
+ ***                                                         
+ **************************************************************/
+
+/**************************************************************
+ *** RHmm package
+ ***                                                         
+ *** File: RHmm.cpp 
+ ***                                                         
+ *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
+ *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
  ***                                                         
  **************************************************************/
 
@@ -75,7 +85,7 @@ uint myNbSample = length(theYt) ;
 
 cDVector* myY = new cDVector[myNbSample] ;
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
         {       
         SEXP myAux ;
                 myRUtil.GetValSexp(theYt, n, myAux) ;
@@ -146,7 +156,7 @@ cHmmFit myParamSortie = cHmmFit(myParamEntree) ;
                 myParamSortie.BaumWelchAlgoInit(myParamEntree) ;        
         myParamSortie.BaumWelchAlgo(myParamEntree) ;
         
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
                 myY[n].Delete() ;
         delete[] myY ;
 
@@ -220,9 +230,9 @@ myRUtil.SetVectSexp(myParamSortie.mInitProba, myAux[0]) ;
         }
         PROTECT(myRes = allocVector(VECSXP, myNAlloc)) ;
  
-        for (uint i = 0 ; i < 3 ; i++)
+        for (register uint i = 0 ; i < 3 ; i++)
                 SET_VECTOR_ELT(myRes, i, myAux[i]) ;
-        for ( uint i = 3 ; i < myNAlloc-1 ; i++)
+        for ( register uint i = 3 ; i < myNAlloc-1 ; i++)
                 SET_VECTOR_ELT(myRes, i, myAux[i]) ;
         SET_VECTOR_ELT(myRes, myNAlloc-1, myAux[5]) ;
 
@@ -251,8 +261,7 @@ char *myStr = (char *)myString ;
                         myDistrType = eNormalDistr ;
                 else
                         myDistrType = eMultiNormalDistr ;
-                Rprintf("DimObs=%d\n", myDimObs) ;
-        }
+         }
         else
         {       if (strcmp(myStr, "DISCRETE") == 0)
                 {       myDistrType = eDiscreteDistr ;
@@ -273,7 +282,7 @@ uint    myNbSample = length(theYt) ;
 uint*   myT = new uint[myNbSample]      ;
 
 cDVector* myY = new cDVector[myNbSample] ;
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
         {
         SEXP myAux ;
                 myRUtil.GetValSexp(theYt, n, myAux) ;
@@ -345,7 +354,7 @@ SEXP myAux[2] ;
 
         SEXP myRes ;
         PROTECT(myRes = allocVector(VECSXP, 2)) ;
-        for (uint i = 0 ; i < 2 ; i++)
+        for (register uint i = 0 ; i < 2 ; i++)
                 SET_VECTOR_ELT(myRes, i, myAux[i]) ;
         myRUtil.EndProtect() ;
         UNPROTECT(1) ;
@@ -403,7 +412,7 @@ uint* myT = new uint[myNbSample] ;
 
 cDVector* myY = new cDVector[myNbSample] ;
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
         {
         SEXP myAux ;
                 myRUtil.GetValSexp(theYt, n, myAux) ;
@@ -462,7 +471,7 @@ cHmm myHMM = cHmm(myDistrType, myNbClasses, myDimObs, myNbMixt, myNbProba) ;
 
 cDMatrix* myProbaCond = new cDMatrix[myNbSample] ;
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
                 myProbaCond[n].ReAlloc(myNbClasses, myT[n]) ;
 
         myHMM.mDistrParam->ComputeCondProba(myY, myNbSample, myProbaCond) ;
@@ -471,7 +480,7 @@ cBaumWelch myBaumWelch=cBaumWelch(myNbSample, myT, myNbClasses) ;
 
         myBaumWelch.OutForwardBackward(myProbaCond, myHMM, myLogData) ;
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
         {       myProbaCond[n].Delete() ;
                 myY[n].Delete() ;
         }
@@ -495,7 +504,7 @@ SEXP    myAux[7] ;
         delete [] myT ;
 SEXP myRes ;
         PROTECT(myRes = allocVector(VECSXP, 7)) ;
-        for (int i = 0 ; i < 7 ; i++)
+        for (register int i = 0 ; i < 7 ; i++)
                 SET_VECTOR_ELT(myRes, i, myAux[i]) ;
         myRUtil.EndProtect() ;
 
@@ -551,7 +560,7 @@ uint*   myT = new uint[myNbSample] ;
 cDVector* myY = new cDVector[myNbSample] ;
 
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
         {       SEXP myAux ;
                 myRUtil.GetValSexp(theYt, n, myAux) ;
                 myT[n] = length(myAux) / myDimObs ;
@@ -604,7 +613,7 @@ cHmm myHMM = cHmm(myDistrType, myNbClasses, myDimObs, myNbMixt, myNbProba) ;
 
 cDMatrix* myProbaCond = new cDMatrix[myNbSample] ;
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
                 myProbaCond[n].ReAlloc(myNbClasses, myT[n]) ;
 
                 myHMM.mDistrParam->ComputeCondProba(myY, myNbSample, myProbaCond) ;
@@ -612,7 +621,7 @@ cDMatrix* myProbaCond = new cDMatrix[myNbSample] ;
 cLogBaumWelch myLogBaumWelch=cLogBaumWelch(myNbSample, myT, myNbClasses) ;
         myLogBaumWelch.LogForwardBackward(myProbaCond, myHMM) ;
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
         {       myProbaCond[n].Delete() ;
                 myY[n].Delete() ;
         }
@@ -625,7 +634,7 @@ SEXP    myAux[6] ;
 uint*   myLigne = new uint[myNbSample] ;
 
 
-        for (uint n = 0 ; n < myNbSample ; n++)
+        for (register uint n = 0 ; n < myNbSample ; n++)
                 myLigne[n] = myNbClasses ;
 
         myRUtil.SetListMatSexp(myLogBaumWelch.mLogAlpha, myNbSample,myAux[0]) ;
@@ -639,7 +648,7 @@ uint*   myLigne = new uint[myNbSample] ;
         delete [] myT ;
 SEXP myRes ;
         PROTECT(myRes = allocVector(VECSXP, 6)) ;
-        for (int i = 0 ; i < 6 ; i++)
+        for (register int i = 0 ; i < 6 ; i++)
                 SET_VECTOR_ELT(myRes, i, myAux[i]) ;
         myRUtil.EndProtect() ;
 
@@ -699,7 +708,7 @@ uint*   myT = new uint[myNSample] ;
 cDVector* myY = new cDVector[myNSample] ;
 
 
-        for (uint n = 0 ; n < myNSample ; n++)
+        for (register uint n = 0 ; n < myNSample ; n++)
         {       SEXP myAux ;
                 myRUtil.GetValSexp(theYt, n, myAux) ;
                 myT[n] = length(myAux) / myDimObs ;
@@ -760,7 +769,7 @@ cDMatrix myCov ;
         myDerivative.ComputeCov(myHmm, myCov) ;
 
 
-        for (uint n = 0 ; n < myNSample ; n++)
+        for (register uint n = 0 ; n < myNSample ; n++)
         {       myY[n].Delete() ;
                 
         }
@@ -828,7 +837,7 @@ uint*   myT = new uint[myNSample] ;
 cDVector* myY = new cDVector[myNSample] ;
 
 
-        for (uint n = 0 ; n < myNSample ; n++)
+        for (register uint n = 0 ; n < myNSample ; n++)
         {       SEXP myAux ;
                 myRUtil.GetValSexp(theYt, n, myAux) ;
                 myT[n] = length(myAux) / myDimObs ;
@@ -888,7 +897,7 @@ cDVector myScore(myNFreeParam) ;
 cDMatrix myInformation(myNFreeParam, myNFreeParam) ;
         myDerivative.ComputeScoreAndInformation(myScore, myInformation) ;
 
-        for (uint n = 0 ; n < myNSample ; n++)
+        for (register uint n = 0 ; n < myNSample ; n++)
         {       myY[n].Delete() ;
                 
         }
@@ -903,7 +912,7 @@ SEXP myAux[2] ;
         myRUtil.SetMatSexp(myInformation, myAux[1]) ;
 SEXP myRes ;
         PROTECT(myRes = allocVector(VECSXP, 2)) ;
-        for (int i = 0 ; i < 2 ; i++)
+        for (register int i = 0 ; i < 2 ; i++)
                 SET_VECTOR_ELT(myRes, i, myAux[i]) ;
         myRUtil.EndProtect() ;
 
