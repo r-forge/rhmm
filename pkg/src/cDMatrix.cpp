@@ -8,16 +8,6 @@
  ***                                                         
  **************************************************************/
 
-/**************************************************************
- *** RHmm package
- ***                                                         
- *** File: cDMatrix.cpp 
- ***                                                         
- *** Author: Ollivier TARAMASCO <Ollivier.Taramasco@imag.fr> 
- *** Author: Sebastian BAUER <sebastian.bauer@charite.de>
- ***                                                         
- **************************************************************/
-
 #include "cDMatrix.h"
 
 void cDMatrix::Initialize(uint theNRow, uint theNCol)
