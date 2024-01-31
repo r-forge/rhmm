@@ -18,7 +18,8 @@
  ***                                                         
  **************************************************************/
 
-#include "cOTError.h"
+//#include "cOTError.h"
+#include "StdAfxRHmm.h"
 
 cOTError::cOTError(const char *theMess)
 {

@@ -18,7 +18,8 @@
  ***                                                         
  **************************************************************/
 
-#include "LogProb.h"
+//#include "LogProb.h"
+#include "StdAfxRHmm.h"
 
 double eexp(const double theX)
 {

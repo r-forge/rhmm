@@ -18,6 +18,10 @@
  ***                                                         
  **************************************************************/
 
+#include "cOTError.h"
+#include "cDVector.h"
+#include "cDMatrix.h"
+
 #include "StatUtil.h"
 #include "LogProb.h"
 #include "SamplesUtil.h"
