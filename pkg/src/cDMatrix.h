@@ -26,10 +26,11 @@
         #define D_PRECISION 16
 #endif //D_PRECISION
 
-#undef NEW_RLAPACK
 
 #if R_VERSION >= 262400 // Version >= 4.1.0
     #define NEW_RLAPACK 1
+#else
+    #define NEW_RLAPACK 0
 #endif
 
 class cDMatrix 

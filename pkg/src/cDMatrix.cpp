@@ -495,7 +495,7 @@ int myInfo,
                 for ( int j = i ; j < myldz ; j++)
                         myAP[i+(j+1)*j/2]  = theMatrix[i][j] ;
         
-#ifdef NEW_RLAPACK
+#if NEW_RLAPACK == 1
             size_t mySize1 = 0;
             size_t mySize2 = 0;
             F77_NAME(dspev)("V", "U", &myN, myAP, myW, myZ, &myldz, myWork, &myInfo, mySize1, mySize2);
@@ -542,7 +542,7 @@ int myInfo,
 		for ( int j = i ; j < myldz ; j++)
 			myAP[i+(j+1)*j/2]  = theMatrix[i][j] ;
 
-#ifdef NEW_RLAPACK
+#if NEW_RLAPACK == 1
     size_t mySize1 = 0;
     size_t mySize2 = 0;
     F77_NAME(dspev)("V", "U", &myN, myAP, myW, myZ, &myldz, myWork, &myInfo, mySize1, mySize2);
