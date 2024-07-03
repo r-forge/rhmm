@@ -58,11 +58,11 @@ typedef enum DistEnum
         gNClasses
 }DistEnum ;
 
-#ifdef WIN32
+#ifdef _WIN64
         #define DECL_DLL_EXPORT __declspec(dllexport) 
 #else
         #define DECL_DLL_EXPORT 
-#endif // WIN32
+#endif //_WIN64
 
 #ifndef BEG_EXTERN_C
         #define BEG_EXTERN_C extern "C" {
