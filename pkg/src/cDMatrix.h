@@ -27,7 +27,7 @@
 #endif //D_PRECISION
 
 
-#if R_VERSION >= 262400 // Version >= 4.1.0
+#if R_VERSION >= 198146 // Version >= 3.6.2
     #define NEW_RLAPACK 1
 #else
     #define NEW_RLAPACK 0
